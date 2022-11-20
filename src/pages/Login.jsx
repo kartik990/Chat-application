@@ -1,12 +1,20 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ChatContext } from "../context/ChatContext";
 import { auth } from "../firebase";
 import "./../style.scss";
 
 const Login = () => {
   const [error, setError] = useState(false);
   const naviagte = useNavigate();
+
+  const { dispatch } = useContext(ChatContext);
+
+  useEffect(() => {
+    dispatch({ type: "RESET", payload: null });
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
